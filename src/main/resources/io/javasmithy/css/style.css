@@ -1,0 +1,34 @@
+.root {
+    -theme-font-family: 'Helvetica';
+}
+
+.header-label {
+    -fx-font-family: -theme-font-family;
+    -fx-font-size: 18;
+    -fx-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.bold-sub-header {
+    -fx-font-family: -theme-font-family;
+    -fx-font-size: 14;
+    -fx-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.body-label {
+    -fx-font-family: -theme-font-family;
+    -fx-font-size: 12;
+    -fx-fill: #000000;
+}
+
+.minor-label {
+    -fx-font-family: -theme-font-family;
+    -fx-font-size: 10;
+    -fx-fill: #000000;
+}
+
+#save-button .ikonli-font-icon {
+    -fx-icon-code: "antf-save";
+    -fx-icon-color: black;
+}
