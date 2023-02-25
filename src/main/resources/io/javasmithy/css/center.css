@@ -1,6 +1,12 @@
 .scroll-pane {
     -fx-background: #829CBC;
-    -fx-hbar-policy: always;
+    -fx-hbar-policy: as-needed;
     -fx-pannable: true;
     -fx-padding: 16;
+}
+
+.label {
+    -fx-font-size: 24;
+    -fx-wrap-text: true;
+    -fx-pref-width: 128;
 }

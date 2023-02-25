@@ -77,6 +77,44 @@ public class AppViewBuilder implements Builder<Region> {
     private Node createCenter(){
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.getStylesheets().add(getClass().getResource("css/center.css").toExternalForm());
+
+        VBox vBox1 = new VBox(4);
+        Label name1 = new Label();
+        name1.textProperty().bindBidirectional(
+                this.weatherModel.getBoundForecastPeriodByKey("forecast-1").nameProperty()
+        );
+        Label forecast1 = new Label();
+        forecast1.textProperty().bindBidirectional(
+                this.weatherModel.getBoundForecastPeriodByKey("forecast-1").longForecastProperty()
+        );
+        vBox1.getChildren().addAll(
+                name1,
+                forecast1
+        );
+
+        VBox vBox2 = new VBox(4);
+        Label name2 = new Label();
+        name2.textProperty().bindBidirectional(
+                this.weatherModel.getBoundForecastPeriodByKey("forecast-2").nameProperty()
+        );
+        Label forecast2 = new Label();
+        forecast2.textProperty().bindBidirectional(
+                this.weatherModel.getBoundForecastPeriodByKey("forecast-2").longForecastProperty()
+        );
+        vBox2.getChildren().addAll(
+                name2,
+                forecast2
+        );
+
+        scrollPane.setContent(
+                new HBox(16,
+                    vBox1,
+                    vBox2
+                )
+        );
+
+
+
         return scrollPane;
     }
 

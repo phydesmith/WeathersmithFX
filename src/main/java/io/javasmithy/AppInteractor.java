@@ -49,6 +49,7 @@ public class AppInteractor {
             Call<Point> pointCall = prService.getPointInformation(geoData.getLatitude(), geoData.getLongitude());
             Response<Point> pointResponse = pointCall.execute();
             Point point = pointResponse.body();
+            System.out.println(point);
 
             //  Fetch Forecast
             ForecastService forecastService = retrofitWeatherAPI.create(ForecastService.class);
@@ -59,6 +60,7 @@ public class AppInteractor {
             );
             Response<Forecast> forecastResponse = forecastCall.execute();
             this.forecast = forecastResponse.body();
+            System.out.println(this.forecast);
 
 
         } catch (IOException | RuntimeException e ){

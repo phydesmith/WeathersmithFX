@@ -22,6 +22,7 @@ public class WeatherModel {
         for(int i = 1; i < 15; i++){
             String key = "forecast-"+i;
             this.forecastMap.put(key, new BoundForecastPeriodProperties());
+            System.out.println("forecastmap initialized");
         }
     }
 
@@ -35,6 +36,8 @@ public class WeatherModel {
     }
 
     public BoundForecastPeriodProperties getBoundForecastPeriodByKey(String key){
+        System.out.println(key);
+        System.out.println(this.forecastMap.get(key).toString());
         return this.forecastMap.get(key);
     }
 
