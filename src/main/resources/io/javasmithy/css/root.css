@@ -1,0 +1,16 @@
+.root {
+    -fx-background-color: radial-gradient( center 70% 5%, radius 60%,  #1D3461, #376996 );
+    -fx-background-repeat: repeat, no-repeat;
+    -fx-background-position: left top, left 19px top 15px;
+    -fx-padding: 64;
+    -fx-font-family: "Arial Narrow";
+}
+
+.label {
+    -fx-text-fill: #EFF3FA;
+}
+
+.button {
+
+}
+

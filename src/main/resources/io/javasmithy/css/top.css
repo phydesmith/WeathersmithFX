@@ -1,0 +1,24 @@
+.label {
+    -fx-font-size: 16;
+}
+
+.title-label {
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-font-size: 12;
+    -fx-background-color: #829CBC;
+    -fx-text-fill: #050810;
+}
+
+.text-field {
+    -fx-font-size: 12;
+    -fx-background-color: #EFF3FA;
+    -fx-text-fill: #050810;
+}
+
+.vbox {
+    -fx-spacing: 4;
+}

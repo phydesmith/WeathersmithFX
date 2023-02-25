@@ -1,0 +1,6 @@
+.scroll-pane {
+    -fx-background: #829CBC;
+    -fx-hbar-policy: always;
+    -fx-pannable: true;
+    -fx-padding: 16;
+}

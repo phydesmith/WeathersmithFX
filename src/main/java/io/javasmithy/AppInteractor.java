@@ -37,6 +37,7 @@ public class AppInteractor {
             Call<GeoData> geoDataCall = service.getGeoData(this.geoModel.getPostalCode());
             Response<GeoData> geoDataResponse = geoDataCall.execute();
             this.geoData = geoDataResponse.body();
+            System.out.println(this.geoData.toString());
 
             //  Point Resolution
             Retrofit retrofitWeatherAPI = new Retrofit.Builder()
@@ -49,7 +50,7 @@ public class AppInteractor {
             Response<Point> pointResponse = pointCall.execute();
             Point point = pointResponse.body();
 
-            //  Forecast Resolution
+            //  Fetch Forecast
             ForecastService forecastService = retrofitWeatherAPI.create(ForecastService.class);
             Call<Forecast> forecastCall = forecastService.getDailyForecast(
                     point.getPointProperties().getGridId(),
