@@ -6,7 +6,7 @@
 }
 
 .label {
-    -fx-font-size: 24;
+    -fx-font-size: 12;
     -fx-wrap-text: true;
     -fx-pref-width: 128;
 }

@@ -7,6 +7,6 @@ import retrofit2.http.Path;
 import java.util.List;
 
 public interface GeoService {
-    @GET("georest/v1/geodata/{postalCode}")
+    @GET("geosmith/v1/geodata/{postalCode}")
     Call<GeoData> getGeoData(@Path("postalCode") String postalCode);
 }

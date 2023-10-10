@@ -1,14 +1,17 @@
 package io.javasmithy;
 
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.Builder;
+import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
+import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AppViewBuilder implements Builder<Region> {
     private final GeoModel geoModel;
@@ -25,7 +28,7 @@ public class AppViewBuilder implements Builder<Region> {
         BorderPane root = new BorderPane();
         root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
 
-        root.setTop(createTop());
+        root.setTop(createMenuBar());
 
         root.setCenter(createCenter());
         BorderPane.setMargin(root.getCenter(), new Insets(8,8,0,0));
@@ -33,6 +36,26 @@ public class AppViewBuilder implements Builder<Region> {
         root.setBottom(createBottom());
 
         return root;
+    }
+
+    private Node createMenuBar(){
+        MenuItem menuItem = new MenuItem("Exit");
+        menuItem.setOnAction( e ->{Platform.exit(); System.exit(0);});
+
+        Menu burgerMenu = createMenu("", List.of(menuItem), new FontIcon(AntDesignIconsOutlined.MENU));
+
+        MenuBar menuBar = new MenuBar(burgerMenu);
+        return menuBar;
+    }
+    private Menu createMenu(String label, List<MenuItem> menuItemList){
+        Menu menu = new Menu(label);
+        menu.getItems().setAll(menuItemList);
+        return menu;
+    }
+    private Menu createMenu(String label, List<MenuItem> menuItemList, FontIcon fontIcon){
+        Menu menu = createMenu(label, menuItemList);
+        menu.setGraphic(fontIcon);
+        return menu;
     }
 
     private Node createTop(){
@@ -56,6 +79,11 @@ public class AppViewBuilder implements Builder<Region> {
         Button button = new Button("Go");
         button.setPrefSize(128, 32);
         button.setOnAction(evt -> geoGetter.run());
+
+
+
+
+
 
         vBox.getChildren().addAll(
                 textfieldLabel,
@@ -105,6 +133,7 @@ public class AppViewBuilder implements Builder<Region> {
                 name2,
                 forecast2
         );
+
 
         scrollPane.setContent(
                 new HBox(16,
