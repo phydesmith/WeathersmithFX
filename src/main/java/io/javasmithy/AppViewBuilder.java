@@ -1,6 +1,8 @@
 package io.javasmithy;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -39,24 +41,40 @@ public class AppViewBuilder implements Builder<Region> {
     }
 
     private Node createMenuBar(){
-        MenuItem menuItem = new MenuItem("Exit");
-        menuItem.setOnAction( e ->{Platform.exit(); System.exit(0);});
-
-        Menu burgerMenu = createMenu("", List.of(menuItem), new FontIcon(AntDesignIconsOutlined.MENU));
-
+        Menu burgerMenu = createMenu("", List.of(
+                createMenu("File", List.of(
+                        createMenuItem("Export", e -> {}),
+                        createMenuItem("Settings", e -> {})
+                )),
+                createMenu("Configure", List.of(
+                        createMenuItem("Zip Code", e -> {})
+                )),
+                new SeparatorMenuItem(),
+                createMenuItem("Exit", e -> {
+                    Platform.exit();
+                    System.exit(0);
+                })
+        ), new FontIcon(AntDesignIconsOutlined.MENU));
         MenuBar menuBar = new MenuBar(burgerMenu);
+        menuBar.setUseSystemMenuBar(true);
         return menuBar;
     }
-    private Menu createMenu(String label, List<MenuItem> menuItemList){
-        Menu menu = new Menu(label);
+    private Menu createMenu(String text, List<MenuItem> menuItemList){
+        Menu menu = new Menu(text);
         menu.getItems().setAll(menuItemList);
         return menu;
     }
-    private Menu createMenu(String label, List<MenuItem> menuItemList, FontIcon fontIcon){
-        Menu menu = createMenu(label, menuItemList);
+    private Menu createMenu(String text, List<MenuItem> menuItemList, FontIcon fontIcon){
+        Menu menu = createMenu(text, menuItemList);
         menu.setGraphic(fontIcon);
         return menu;
     }
+    private MenuItem createMenuItem(String text, EventHandler<ActionEvent> e){
+        MenuItem menuItem = new MenuItem(text);
+        menuItem.setOnAction(e);
+        return menuItem;
+    }
+
 
     private Node createTop(){
         HBox hBox = new HBox(128);
