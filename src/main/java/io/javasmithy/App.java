@@ -11,7 +11,6 @@ public class App extends Application {
     public void start(Stage stage) {
         stage.setScene(new Scene(new AppController().getView()));
         stage.setTitle("WeathersmithFX");
-        stage.initStyle(StageStyle.UNIFIED);
         stage.setWidth(1440);
         stage.setHeight(512);
 

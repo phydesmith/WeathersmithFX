@@ -9,7 +9,17 @@
     #-fx-text-fill: #EFF3FA;
 }
 
+.menu:hover {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+}
+
 .button {
+    -fx-background-color: transparent;
+    -fx-icons-color: white;
+}
+
+
+.separator {
     -fx-background-color: transparent;
 }
 
@@ -23,6 +33,8 @@
     -fx-content-display: LEFT;
 }
 
+
+
 .custom-text-field {
     -fx-background-color: transparent;
 }
@@ -31,6 +43,7 @@
     /*-fx-border-color: red;*/
     -fx-spacing: 0;
     -fx-padding: 0;
+    -fx-background-color: transparent;
 }
 
 .tool-bar {

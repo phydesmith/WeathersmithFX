@@ -8,12 +8,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Material;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Builder;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignCIkonProvider;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignM;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignW;
 
@@ -51,17 +55,10 @@ public class AppViewBuilder implements Builder<Region> {
                 createMenuItem("Exit", e -> {
                     exitApplication();
                 })
-        ), new FontIcon(MaterialDesignM.MENU));
+        ), FontIcon.of(MaterialDesignM.MENU, Color.WHITE));
 
-//        TextField textField = new TextField();
-//        textField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
-//        textField.setPrefSize(128, 32);
-//        textField.setMaxSize(128, 32);
-//        textField.setPromptText("Search Zip Code");
-//        textField.setText("test");
-//
         Button button = new Button();
-        button.setGraphic(new FontIcon(MaterialDesignM.MAGNIFY));
+        button.setGraphic(FontIcon.of(MaterialDesignM.MAGNIFY, Color.WHITE));
         button.setDefaultButton(true);
         button.setOnAction(evt -> geoGetter.run());
         button.setPrefHeight(20);
@@ -74,8 +71,10 @@ public class AppViewBuilder implements Builder<Region> {
         searchTextField.setPrefSize(128, 32);
         searchTextField.setMaxSize(128, 32);
 
-        ToolBar toolBar = new ToolBar(new MenuBar(burgerMenu), searchTextField);
-        return toolBar;
+        Button settingsButton = new Button();
+        settingsButton.setGraphic(FontIcon.of(MaterialDesignC.COG_OUTLINE, Color.WHITE));
+
+        return new ToolBar(new MenuBar(burgerMenu), createSpacer(Priority.SOMETIMES), searchTextField, createSpacer(Priority.SOMETIMES), settingsButton);
     }
     private Menu createMenu(String text, List<MenuItem> menuItemList){
         Menu menu = new Menu(text);
@@ -101,6 +100,14 @@ public class AppViewBuilder implements Builder<Region> {
     private void exitApplication(){
         Platform.exit();
         System.exit(0);
+    }
+    private Node createSpacer(Priority priority){
+        Pane pane = new Pane();
+        HBox.setHgrow(
+                pane,
+                priority
+        );
+        return pane;
     }
 
 
