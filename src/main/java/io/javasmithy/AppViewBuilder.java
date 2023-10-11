@@ -52,9 +52,15 @@ public class AppViewBuilder implements Builder<Region> {
                 })
         ), new FontIcon(MaterialDesignM.MENU));
 
-        Label label = new Label();
-        label.setGraphic(new FontIcon(MaterialDesignM.MAGNIFY));
-        ToolBar toolBar = new ToolBar(new MenuBar(burgerMenu), label, new TextField());
+        TextField textField = new TextField("Enter location... ");
+        textField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
+        textField.setPrefSize(128, 32);
+        textField.setMaxSize(128, 32);
+
+        Button button = new Button();
+        button.setGraphic(new FontIcon(MaterialDesignM.MAGNIFY));
+        button.setOnAction(evt -> geoGetter.run());
+        ToolBar toolBar = new ToolBar(new MenuBar(burgerMenu), textField, button);
         toolBar.setPrefWidth(200);
         return toolBar;
     }
