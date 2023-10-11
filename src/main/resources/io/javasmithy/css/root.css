@@ -17,6 +17,10 @@
     -fx-border-color: red;
     -fx-spacing: 0;
     -fx-padding: 0;
+}
 
+.tool-bar {
+    -fx-border-color: green;
+    -fx-padding: 0;
 }
 

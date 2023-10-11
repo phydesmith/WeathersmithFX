@@ -8,12 +8,17 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Builder;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignM;
+import org.kordamp.ikonli.materialdesign2.MaterialDesignW;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class AppViewBuilder implements Builder<Region> {
     private final GeoModel geoModel;
@@ -42,22 +47,16 @@ public class AppViewBuilder implements Builder<Region> {
 
     private Node createMenuBar(){
         Menu burgerMenu = createMenu("", List.of(
-                createMenu("File", List.of(
-                        createMenuItem("Export", e -> {}),
-                        createMenuItem("Settings", e -> {})
-                )),
-                createMenu("Configure", List.of(
-                        createMenuItem("Zip Code", e -> {})
-                )),
-                new SeparatorMenuItem(),
                 createMenuItem("Exit", e -> {
-                    Platform.exit();
-                    System.exit(0);
+                    exitApplication();
                 })
-        ), new FontIcon(AntDesignIconsOutlined.MENU));
-        MenuBar menuBar = new MenuBar(burgerMenu);
-        menuBar.setUseSystemMenuBar(true);
-        return menuBar;
+        ), new FontIcon(MaterialDesignM.MENU));
+
+        Label label = new Label();
+        label.setGraphic(new FontIcon(MaterialDesignM.MAGNIFY));
+        ToolBar toolBar = new ToolBar(new MenuBar(burgerMenu), label, new TextField());
+        toolBar.setPrefWidth(200);
+        return toolBar;
     }
     private Menu createMenu(String text, List<MenuItem> menuItemList){
         Menu menu = new Menu(text);
@@ -69,11 +68,22 @@ public class AppViewBuilder implements Builder<Region> {
         menu.setGraphic(fontIcon);
         return menu;
     }
+    private Menu createMenu(String text, FontIcon fontIcon, EventHandler<ActionEvent> e){
+        Menu menu = createMenu(text, List.of());
+        menu.setGraphic(fontIcon);
+        menu.setOnAction(e);
+        return menu;
+    }
     private MenuItem createMenuItem(String text, EventHandler<ActionEvent> e){
         MenuItem menuItem = new MenuItem(text);
         menuItem.setOnAction(e);
         return menuItem;
     }
+    private void exitApplication(){
+        Platform.exit();
+        System.exit(0);
+    }
+
 
 
     private Node createTop(){

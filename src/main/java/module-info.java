@@ -4,6 +4,7 @@ module io.javasmithy {
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.ikonli.antdesignicons;
+    requires org.kordamp.ikonli.materialdesign2;
     requires org.kordamp.ikonli.weathericons;
     requires java.net.http;
     requires com.google.gson;
