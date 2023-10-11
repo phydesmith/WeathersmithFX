@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Builder;
+import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignM;
@@ -52,16 +53,28 @@ public class AppViewBuilder implements Builder<Region> {
                 })
         ), new FontIcon(MaterialDesignM.MENU));
 
-        TextField textField = new TextField("Enter location... ");
-        textField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
-        textField.setPrefSize(128, 32);
-        textField.setMaxSize(128, 32);
-
+//        TextField textField = new TextField();
+//        textField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
+//        textField.setPrefSize(128, 32);
+//        textField.setMaxSize(128, 32);
+//        textField.setPromptText("Search Zip Code");
+//        textField.setText("test");
+//
         Button button = new Button();
         button.setGraphic(new FontIcon(MaterialDesignM.MAGNIFY));
+        button.setDefaultButton(true);
         button.setOnAction(evt -> geoGetter.run());
-        ToolBar toolBar = new ToolBar(new MenuBar(burgerMenu), textField, button);
-        toolBar.setPrefWidth(200);
+        button.setPrefHeight(20);
+        button.setMaxHeight(20);
+
+        CustomTextField searchTextField = new CustomTextField();
+        searchTextField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
+        searchTextField.setPromptText("Search Zip Code");
+        searchTextField.setRight(button);
+        searchTextField.setPrefSize(128, 32);
+        searchTextField.setMaxSize(128, 32);
+
+        ToolBar toolBar = new ToolBar(new MenuBar(burgerMenu), searchTextField);
         return toolBar;
     }
     private Menu createMenu(String text, List<MenuItem> menuItemList){
@@ -91,50 +104,6 @@ public class AppViewBuilder implements Builder<Region> {
     }
 
 
-
-    private Node createTop(){
-        HBox hBox = new HBox(128);
-        hBox.getStylesheets().add(getClass().getResource("css/top.css").toExternalForm());
-        hBox.setAlignment(Pos.BOTTOM_LEFT);
-
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.BOTTOM_LEFT);
-        vBox.getStyleClass().add("vbox");
-
-        Label titleLabel = new Label("Weather Forecast");
-        titleLabel.getStyleClass().add("title-label");
-
-        Label textfieldLabel = new Label("Local forecast by ZIP code");
-        TextField textField = new TextField("Enter location... ");
-        textField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
-        textField.setPrefSize(128, 32);
-        textField.setMaxSize(128, 32);
-
-        Button button = new Button("Go");
-        button.setPrefSize(128, 32);
-        button.setOnAction(evt -> geoGetter.run());
-
-
-
-
-
-
-        vBox.getChildren().addAll(
-                textfieldLabel,
-                new HBox(8,
-                        textField,
-                        button
-                )
-        );
-
-
-        hBox.getChildren().addAll(
-                vBox,
-                titleLabel
-        );
-
-        return hBox;
-    }
 
     private Node createCenter(){
         ScrollPane scrollPane = new ScrollPane();

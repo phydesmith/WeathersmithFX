@@ -6,6 +6,7 @@ module io.javasmithy {
     requires org.kordamp.ikonli.antdesignicons;
     requires org.kordamp.ikonli.materialdesign2;
     requires org.kordamp.ikonli.weathericons;
+    requires org.controlsfx.controls;
     requires java.net.http;
     requires com.google.gson;
     requires retrofit2;
