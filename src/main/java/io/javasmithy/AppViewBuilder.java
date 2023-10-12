@@ -1,5 +1,6 @@
 package io.javasmithy;
 
+import io.javasmithy.util.FXUtil;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Builder;
@@ -23,6 +25,7 @@ import org.kordamp.ikonli.materialdesign2.MaterialDesignW;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 public class AppViewBuilder implements Builder<Region> {
@@ -57,24 +60,30 @@ public class AppViewBuilder implements Builder<Region> {
                 })
         ), FontIcon.of(MaterialDesignM.MENU, Color.WHITE));
 
-        Button button = new Button();
-        button.setGraphic(FontIcon.of(MaterialDesignM.MAGNIFY, Color.WHITE));
-        button.setDefaultButton(true);
-        button.setOnAction(evt -> geoGetter.run());
-        button.setPrefHeight(20);
-        button.setMaxHeight(20);
 
         CustomTextField searchTextField = new CustomTextField();
         searchTextField.textProperty().bindBidirectional(geoModel.postalCodeProperty());
         searchTextField.setPromptText("Search Zip Code");
-        searchTextField.setRight(button);
-        searchTextField.setPrefSize(128, 32);
-        searchTextField.setMaxSize(128, 32);
+        searchTextField.setRight(
+                FXUtil.build(new Button(), b -> {
+                    b.setGraphic(FontIcon.of(MaterialDesignM.MAGNIFY, Color.WHITE));
+                    b.setDefaultButton(true);
+                    b.setOnAction(evt -> geoGetter.run());}
+                )
+        );
+        Pane searchPane = new Pane(searchTextField);
+        searchPane.getStyleClass().add("pane-with-border");
 
         Button settingsButton = new Button();
         settingsButton.setGraphic(FontIcon.of(MaterialDesignC.COG_OUTLINE, Color.WHITE));
 
-        return new ToolBar(new MenuBar(burgerMenu), createSpacer(Priority.SOMETIMES), searchTextField, createSpacer(Priority.SOMETIMES), settingsButton);
+        return new ToolBar(
+                new MenuBar(burgerMenu),
+                createSpacer(Priority.SOMETIMES),
+                searchPane,
+                createSpacer(Priority.SOMETIMES),
+                settingsButton
+        );
     }
     private Menu createMenu(String text, List<MenuItem> menuItemList){
         Menu menu = new Menu(text);
@@ -108,6 +117,15 @@ public class AppViewBuilder implements Builder<Region> {
                 priority
         );
         return pane;
+    }
+    private Button createButton(String text, Optional<FontIcon> fontIcon, boolean isDefault, EventHandler<ActionEvent> e){
+        Button button = new Button();
+        button.setText(text);
+        fontIcon.ifPresent(button::setGraphic);
+
+        button.setDefaultButton(isDefault);
+        button.setOnAction(e);
+        return button;
     }
 
 

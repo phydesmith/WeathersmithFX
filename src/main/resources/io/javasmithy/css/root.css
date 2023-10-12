@@ -3,6 +3,16 @@
     -fx-background-repeat: repeat, no-repeat;
     -fx-background-position: left top, left 19px top 15px;
     -fx-font-family: "Arial Narrow";
+    -fx-pref-height: 500;
+    -fx-pref-width: 1000;
+}
+
+.tool-bar {
+    /*-fx-border-color: red;*/
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-pref-height: 16;
+    -fx-max-height: 16;
+    -fx-padding: 4, 0, 0, 4;
 }
 
 .label {
@@ -16,11 +26,8 @@
 .button {
     -fx-background-color: transparent;
     -fx-icons-color: white;
-}
-
-
-.separator {
-    -fx-background-color: transparent;
+    -fx-pref-height: 24;
+    -fx-pref-width: 24;
 }
 
 .button:hover {
@@ -36,18 +43,28 @@
 
 
 .custom-text-field {
+    /*-fx-border-color: green;*/
     -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-pref-height: 32;
+    -fx-pref-width: 128;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
 }
 
 .menu-bar {
-    /*-fx-border-color: red;*/
+    /*-fx-border-color: blue;*/
     -fx-spacing: 0;
     -fx-padding: 0;
     -fx-background-color: transparent;
+    -fx-pref-height: 24;
+    -fx-tile-alignment: center;
 }
 
-.tool-bar {
-    /*-fx-border-color: green;*/
-    -fx-background-color: transparent;
+.pane-with-border {
+    -fx-border-color: white;
+    -fx-border-radius: 4;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
 }
+
+
 
