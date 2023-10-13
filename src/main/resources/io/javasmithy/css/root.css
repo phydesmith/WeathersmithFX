@@ -3,8 +3,8 @@
     -fx-background-repeat: repeat, no-repeat;
     -fx-background-position: left top, left 19px top 15px;
     -fx-font-family: "Arial Narrow";
-    -fx-pref-height: 500;
-    -fx-pref-width: 1000;
+    -fx-pref-height: 250;
+    -fx-pref-width: 500;
 }
 
 .tool-bar {
@@ -16,7 +16,17 @@
 }
 
 .label {
-    #-fx-text-fill: #EFF3FA;
+    -fx-text-fill: Magenta;
+}
+.label.header {
+    -fx-font-size: 32;
+    -fx-font-weight: bold;
+}
+.label.body {
+    -fx-font-size: 18;
+}
+.label.small {
+    -fx-font-size: 14;
 }
 
 .menu:hover {
@@ -65,6 +75,7 @@
     -fx-border-radius: 4;
     /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
 }
+
 
 
 

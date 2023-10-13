@@ -1,12 +1,14 @@
 package io.javasmithy;
 
 import io.javasmithy.util.FXUtil;
+import io.javasmithy.weather.BoundForecastPeriodProperties;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,14 +17,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Builder;
+import javafx.util.StringConverter;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.NumberStringConverter;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignC;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignCIkonProvider;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignM;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignW;
+import org.kordamp.ikonli.materialdesign2.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,17 +46,15 @@ public class AppViewBuilder implements Builder<Region> {
         BorderPane root = new BorderPane();
         root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
 
-        root.setTop(createMenuBar());
+        root.setTop(createMenuBar(root));
 
-        root.setCenter(createCenter());
+        root.setCenter(weatherBox());
         BorderPane.setMargin(root.getCenter(), new Insets(8,8,0,0));
-
-        root.setBottom(createBottom());
 
         return root;
     }
 
-    private Node createMenuBar(){
+    private Node createMenuBar(Parent root){
         Menu burgerMenu = createMenu("", List.of(
                 createMenuItem("Exit", e -> {
                     exitApplication();
@@ -77,11 +78,22 @@ public class AppViewBuilder implements Builder<Region> {
         Button settingsButton = new Button();
         settingsButton.setGraphic(FontIcon.of(MaterialDesignC.COG_OUTLINE, Color.WHITE));
 
+        Button reloadButton = new Button();
+        reloadButton.setGraphic(FontIcon.of(MaterialDesignR.REFRESH, Color.WHITE));
+        reloadButton.setOnAction(e -> {
+            File f = new File("src/main/resources/io/javasmithy/css/root.css");
+            root.getStylesheets().clear();
+            root.getStylesheets().add(
+                    "file:///" + f.getAbsolutePath().replace("\\", "/")
+            );
+        });
+
         return new ToolBar(
                 new MenuBar(burgerMenu),
                 createSpacer(Priority.SOMETIMES),
                 searchPane,
                 createSpacer(Priority.SOMETIMES),
+                reloadButton,
                 settingsButton
         );
     }
@@ -128,59 +140,31 @@ public class AppViewBuilder implements Builder<Region> {
         return button;
     }
 
+    private Node weatherBox(){
+        BoundForecastPeriodProperties props = this.weatherModel.getBoundForecastPeriodByKey("forecast-1");
 
+        Label forecast = new Label();
+        forecast.getStyleClass().add("body");
 
-    private Node createCenter(){
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.getStylesheets().add(getClass().getResource("css/center.css").toExternalForm());
-
-        VBox vBox1 = new VBox(4);
-        Label name1 = new Label();
-        name1.textProperty().bindBidirectional(
-                this.weatherModel.getBoundForecastPeriodByKey("forecast-1").nameProperty()
-        );
-        Label forecast1 = new Label();
-        forecast1.textProperty().bindBidirectional(
-                this.weatherModel.getBoundForecastPeriodByKey("forecast-1").longForecastProperty()
-        );
-        vBox1.getChildren().addAll(
-                name1,
-                forecast1
+        forecast.textProperty().bindBidirectional(
+                props.shortForecastProperty()
         );
 
-        VBox vBox2 = new VBox(4);
-        Label name2 = new Label();
-        name2.textProperty().bindBidirectional(
-                this.weatherModel.getBoundForecastPeriodByKey("forecast-2").nameProperty()
-        );
-        Label forecast2 = new Label();
-        forecast2.textProperty().bindBidirectional(
-                this.weatherModel.getBoundForecastPeriodByKey("forecast-2").longForecastProperty()
-        );
-        vBox2.getChildren().addAll(
-                name2,
-                forecast2
+        Label name = new Label();
+        name.getStyleClass().add("small");
+        name.textProperty().bindBidirectional(
+                props.nameProperty()
         );
 
-
-        scrollPane.setContent(
-                new HBox(16,
-                    vBox1,
-                    vBox2
-                )
+        Label temperature = new Label();
+        temperature.getStyleClass().add("header");
+        temperature.textProperty().bindBidirectional(
+                props.temperatureProperty(),
+                new NumberStringConverter()
         );
 
+        VBox vBox = new VBox(temperature, forecast, name);
 
-
-        return scrollPane;
+        return new ScrollPane(vBox);
     }
-
-    private Node createBottom(){
-        VBox vBox = new VBox();
-        vBox.getStylesheets().add(getClass().getResource("css/bottom.css").toExternalForm());
-        Label label = new Label("... consequatur aut perferendis doloribus asperiores repellat");
-        vBox.getChildren().add(label);
-        return vBox;
-    }
-
 }
