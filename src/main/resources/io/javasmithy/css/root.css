@@ -7,6 +7,10 @@
     -fx-pref-width: 500;
 }
 
+.ikonli-font-icon {
+    -fx-icon-color: white;
+}
+
 .tool-bar {
     /*-fx-border-color: red;*/
     -fx-background-color: rgba(255, 255, 255, 0.2);
@@ -15,12 +19,24 @@
     -fx-padding: 4, 0, 0, 4;
 }
 
+.scroll-pane {
+    -fx-border-color: green;
+    -fx-background-color: transparent;
+    -fx-padding: 10;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
 .label {
-    -fx-text-fill: Magenta;
+    /*-fx-border-color: pink;*/
+    -fx-text-fill: white;
 }
 .label.header {
     -fx-font-size: 32;
     -fx-font-weight: bold;
+    -fx-alignment: center;
 }
 .label.body {
     -fx-font-size: 18;
@@ -70,12 +86,17 @@
     -fx-tile-alignment: center;
 }
 
-.pane-with-border {
+.search-pane-with-border {
     -fx-border-color: white;
     -fx-border-radius: 4;
     /*-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);*/
 }
 
+.center-vbox {
+    -fx-border-color: orange;
+    -fx-padding: 20;
+    -fx-border-insets: 10;
+}
 
 
 

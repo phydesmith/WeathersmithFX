@@ -70,6 +70,7 @@ public class AppInteractor {
 
     public void updatedWeatherModel(){
         this.geoModel.setPlaceName(this.geoData.getPlaceName());
+        this.geoModel.setStateCode(this.geoData.getStateCode());
         this.weatherModel.updateForecast(this.forecast);
     }
 

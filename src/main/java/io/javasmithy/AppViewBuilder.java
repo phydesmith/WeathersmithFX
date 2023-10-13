@@ -1,8 +1,11 @@
 package io.javasmithy;
 
+import io.javasmithy.geo.GeoData;
 import io.javasmithy.util.FXUtil;
 import io.javasmithy.weather.BoundForecastPeriodProperties;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -26,6 +29,8 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,12 +50,8 @@ public class AppViewBuilder implements Builder<Region> {
     public Region build(){
         BorderPane root = new BorderPane();
         root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
-
         root.setTop(createMenuBar(root));
-
         root.setCenter(weatherBox());
-        BorderPane.setMargin(root.getCenter(), new Insets(8,8,0,0));
-
         return root;
     }
 
@@ -59,7 +60,7 @@ public class AppViewBuilder implements Builder<Region> {
                 createMenuItem("Exit", e -> {
                     exitApplication();
                 })
-        ), FontIcon.of(MaterialDesignM.MENU, Color.WHITE));
+        ), FontIcon.of(MaterialDesignM.MENU));
 
 
         CustomTextField searchTextField = new CustomTextField();
@@ -67,19 +68,19 @@ public class AppViewBuilder implements Builder<Region> {
         searchTextField.setPromptText("Search Zip Code");
         searchTextField.setRight(
                 FXUtil.build(new Button(), b -> {
-                    b.setGraphic(FontIcon.of(MaterialDesignM.MAGNIFY, Color.WHITE));
+                    b.setGraphic(FontIcon.of(MaterialDesignM.MAGNIFY));
                     b.setDefaultButton(true);
                     b.setOnAction(evt -> geoGetter.run());}
                 )
         );
         Pane searchPane = new Pane(searchTextField);
-        searchPane.getStyleClass().add("pane-with-border");
+        searchPane.getStyleClass().add("search-pane-with-border");
 
         Button settingsButton = new Button();
-        settingsButton.setGraphic(FontIcon.of(MaterialDesignC.COG_OUTLINE, Color.WHITE));
+        settingsButton.setGraphic(FontIcon.of(MaterialDesignC.COG_OUTLINE));
 
         Button reloadButton = new Button();
-        reloadButton.setGraphic(FontIcon.of(MaterialDesignR.REFRESH, Color.WHITE));
+        reloadButton.setGraphic(FontIcon.of(MaterialDesignR.REFRESH));
         reloadButton.setOnAction(e -> {
             File f = new File("src/main/resources/io/javasmithy/css/root.css");
             root.getStylesheets().clear();
@@ -145,7 +146,6 @@ public class AppViewBuilder implements Builder<Region> {
 
         Label forecast = new Label();
         forecast.getStyleClass().add("body");
-
         forecast.textProperty().bindBidirectional(
                 props.shortForecastProperty()
         );
@@ -159,12 +159,19 @@ public class AppViewBuilder implements Builder<Region> {
         Label temperature = new Label();
         temperature.getStyleClass().add("header");
         temperature.textProperty().bindBidirectional(
-                props.temperatureProperty(),
-                new NumberStringConverter()
+                props.temperatureProperty(), new NumberStringConverter()
+        );
+        temperature.setGraphic(FontIcon.of(MaterialDesignT.TEMPERATURE_FAHRENHEIT));
+        temperature.setContentDisplay(ContentDisplay.RIGHT);
+
+        Label location = new Label();
+        location.textProperty().bind(
+                Bindings.concat(this.geoModel.placeNameProperty(), ", ", this.geoModel.stateCodeProperty())
         );
 
-        VBox vBox = new VBox(temperature, forecast, name);
 
+
+        VBox vBox = new VBox(name, temperature, forecast, location);
         return new ScrollPane(vBox);
     }
 }
