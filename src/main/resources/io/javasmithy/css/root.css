@@ -22,7 +22,7 @@
 .scroll-pane {
     -fx-border-color: green;
     -fx-background-color: transparent;
-    -fx-padding: 10;
+    -fx-alignment: center;
 }
 
 .scroll-pane > .viewport {
@@ -44,6 +44,13 @@
 .label.small {
     -fx-font-size: 14;
 }
+.menu-item .label {
+    -fx-text-fill: black;
+
+}
+.menu-item:hover .label {
+    -fx-text-fill: white;
+}
 
 .menu:hover {
     -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
@@ -61,7 +68,8 @@
     /*-fx-background-insets: 0 0 -1 0, 0, 1, 2;*/
     -fx-background-radius: 0px, 0px, 0px, 0px;
     /*-fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; !* 4 8 4 8 *!*/
-    -fx-text-fill: -fx-text-base-color;
+    /*-fx-text-fill: -fx-text-base-color;*/
+    -fx-text-fill: black;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
 }
@@ -93,10 +101,11 @@
 }
 
 .center-vbox {
+    -fx-alignment: center;
     -fx-border-color: orange;
-    -fx-padding: 20;
-    -fx-border-insets: 10;
 }
+
+
 
 
 

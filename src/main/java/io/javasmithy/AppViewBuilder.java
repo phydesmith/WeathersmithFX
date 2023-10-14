@@ -13,6 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
@@ -51,7 +52,10 @@ public class AppViewBuilder implements Builder<Region> {
         BorderPane root = new BorderPane();
         root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
         root.setTop(createMenuBar(root));
-        root.setCenter(weatherBox());
+
+        Node node = weatherBox();
+        BorderPane.setMargin(node, new Insets(8));
+        root.setCenter(node);
         return root;
     }
 
@@ -169,9 +173,12 @@ public class AppViewBuilder implements Builder<Region> {
                 Bindings.concat(this.geoModel.placeNameProperty(), ", ", this.geoModel.stateCodeProperty())
         );
 
+        ImageView imageView = new ImageView();
+
 
 
         VBox vBox = new VBox(name, temperature, forecast, location);
-        return new ScrollPane(vBox);
+        vBox.getStyleClass().add("center-vbox");
+        return vBox;
     }
 }
