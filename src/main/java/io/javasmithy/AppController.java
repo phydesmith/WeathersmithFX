@@ -17,7 +17,7 @@ public class AppController {
         this.viewBuilder = new AppViewBuilder(geoModel, this::getGeoData, weatherModel);
     }
 
-    private void getGeoData(){
+    private void getGeoData(Runnable postTaskGuiActions){
         Task<Void> getGeoDataTask = new Task<Void>() {
             @Override
             protected Void call() throws Exception {
@@ -27,6 +27,7 @@ public class AppController {
         };
         getGeoDataTask.setOnSucceeded( evt -> {
             interactor.updatedWeatherModel();
+            postTaskGuiActions.run();
         });
         Thread geoDataThread = new Thread(getGeoDataTask);
         geoDataThread.start();

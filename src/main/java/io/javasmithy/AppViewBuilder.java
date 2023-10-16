@@ -36,13 +36,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
+import java.util.function.Consumer;
 
 public class AppViewBuilder implements Builder<Region> {
     private final GeoModel geoModel;
-    private final Runnable geoGetter;
+    private final Consumer<Runnable> geoGetter;
     private final  WeatherModel weatherModel;
     private final BorderPane root;
-    public AppViewBuilder (GeoModel geoModel, Runnable geoGetter, WeatherModel weatherModel) {
+    public AppViewBuilder (GeoModel geoModel, Consumer<Runnable> geoGetter, WeatherModel weatherModel) {
         this.geoModel = geoModel;
         this.geoGetter = geoGetter;
         this.weatherModel = weatherModel;
@@ -52,7 +53,7 @@ public class AppViewBuilder implements Builder<Region> {
     @Override
     public Region build(){
         this.root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
-        this.root.setTop(createMenuBar(this.root));
+        this.root.setTop(createMenuBar());
 
         Node node = weatherBox();
         BorderPane.setMargin(node, new Insets(8));
@@ -63,7 +64,7 @@ public class AppViewBuilder implements Builder<Region> {
         return this.root;
     }
 
-    private Node createMenuBar(Parent root){
+    private Node createMenuBar(){
         Menu burgerMenu = createMenu("", List.of(
                 createMenuItem("Exit", e -> {
                     exitApplication();
@@ -80,7 +81,7 @@ public class AppViewBuilder implements Builder<Region> {
                     b.setDefaultButton(true);
                     b.setOnAction(
                             evt -> {
-                                geoGetter.run();
+                                geoGetter.accept( () -> root.getCenter().setVisible(true) );
                             }
                     );}
                 )
