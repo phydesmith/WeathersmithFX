@@ -41,22 +41,26 @@ public class AppViewBuilder implements Builder<Region> {
     private final GeoModel geoModel;
     private final Runnable geoGetter;
     private final  WeatherModel weatherModel;
+    private final BorderPane root;
     public AppViewBuilder (GeoModel geoModel, Runnable geoGetter, WeatherModel weatherModel) {
         this.geoModel = geoModel;
         this.geoGetter = geoGetter;
         this.weatherModel = weatherModel;
+        this.root = new BorderPane();
     }
 
     @Override
     public Region build(){
-        BorderPane root = new BorderPane();
-        root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
-        root.setTop(createMenuBar(root));
+        this.root.getStylesheets().add(getClass().getResource("css/root.css").toExternalForm());
+        this.root.setTop(createMenuBar(this.root));
 
         Node node = weatherBox();
         BorderPane.setMargin(node, new Insets(8));
-        root.setCenter(node);
-        return root;
+        this.root.setCenter(node);
+
+        this.root.getCenter().setVisible(false);
+
+        return this.root;
     }
 
     private Node createMenuBar(Parent root){
@@ -74,7 +78,11 @@ public class AppViewBuilder implements Builder<Region> {
                 FXUtil.build(new Button(), b -> {
                     b.setGraphic(FontIcon.of(MaterialDesignM.MAGNIFY));
                     b.setDefaultButton(true);
-                    b.setOnAction(evt -> geoGetter.run());}
+                    b.setOnAction(
+                            evt -> {
+                                geoGetter.run();
+                            }
+                    );}
                 )
         );
         Pane searchPane = new Pane(searchTextField);
@@ -180,5 +188,9 @@ public class AppViewBuilder implements Builder<Region> {
         VBox vBox = new VBox(name, temperature, forecast, location);
         vBox.getStyleClass().add("center-vbox");
         return vBox;
+    }
+
+    public void setDisplayVisible(){
+        this.root.getCenter().setVisible(true);
     }
 }
