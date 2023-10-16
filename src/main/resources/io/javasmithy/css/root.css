@@ -101,8 +101,9 @@
 }
 
 .center-vbox {
+    -fx-border-color: white;
+    -fx-border-radius: 4;
     -fx-alignment: center;
-    -fx-border-color: orange;
 }
 
 
