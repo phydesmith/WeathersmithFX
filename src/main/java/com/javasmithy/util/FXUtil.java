@@ -1,4 +1,4 @@
-package io.javasmithy.util;
+package com.javasmithy.util;
 
 import java.util.function.Consumer;
 

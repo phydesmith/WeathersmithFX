@@ -1,4 +1,4 @@
-package io.javasmithy;
+package com.javasmithy;
 
 import io.javasmithy.weather.Forecast;
 import io.javasmithy.weather.ForecastPeriod;

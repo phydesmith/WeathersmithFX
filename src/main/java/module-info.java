@@ -1,4 +1,4 @@
-module io.javasmithy {
+module com.javasmithy {
     requires javafx.base;
     requires javafx.controls;
     requires org.kordamp.ikonli.core;
@@ -12,10 +12,10 @@ module io.javasmithy {
     requires retrofit2;
     requires retrofit2.converter.gson;
 
-    exports io.javasmithy;
+    exports com.javasmithy;
 
-    opens io.javasmithy.geo to com.google.gson;
-    opens io.javasmithy.geo.point to com.google.gson;
-    opens io.javasmithy.weather to com.google.gson;
+    opens com.javasmithy.geo to com.google.gson;
+    opens com.javasmithy.geo.point to com.google.gson;
+    opens com.javasmithy.weather to com.google.gson;
 
 }

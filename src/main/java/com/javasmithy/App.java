@@ -1,4 +1,4 @@
-package io.javasmithy;
+package com.javasmithy;
 
 import javafx.application.Application;
 import javafx.scene.Scene;

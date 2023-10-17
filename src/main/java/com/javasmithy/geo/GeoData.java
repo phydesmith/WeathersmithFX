@@ -1,4 +1,4 @@
-package io.javasmithy.geo;
+package com.javasmithy.geo;
 
 import java.util.Objects;
 

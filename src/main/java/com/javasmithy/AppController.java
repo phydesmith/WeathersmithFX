@@ -1,4 +1,4 @@
-package io.javasmithy;
+package com.javasmithy;
 
 import io.javasmithy.geo.GeoData;
 import javafx.concurrent.Task;
