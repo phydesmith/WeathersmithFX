@@ -1,11 +1,11 @@
 package com.javasmithy;
 
-import io.javasmithy.geo.GeoData;
-import io.javasmithy.geo.GeoService;
-import io.javasmithy.geo.point.Point;
-import io.javasmithy.geo.point.PointResolutionService;
-import io.javasmithy.weather.Forecast;
-import io.javasmithy.weather.ForecastService;
+import com.javasmithy.geo.GeoData;
+import com.javasmithy.geo.GeoService;
+import com.javasmithy.geo.point.Point;
+import com.javasmithy.geo.point.PointResolutionService;
+import com.javasmithy.weather.Forecast;
+import com.javasmithy.weather.ForecastService;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;

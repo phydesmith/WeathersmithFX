@@ -1,41 +1,25 @@
 package com.javasmithy;
 
-import io.javasmithy.geo.GeoData;
-import io.javasmithy.util.FXUtil;
-import io.javasmithy.weather.BoundForecastPeriodProperties;
+import com.javasmithy.util.FXUtil;
+import com.javasmithy.weather.BoundForecastPeriodProperties;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Builder;
-import javafx.util.StringConverter;
-import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 import org.controlsfx.control.textfield.CustomTextField;
-import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.*;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Stack;
 import java.util.function.Consumer;
 
 public class AppViewBuilder implements Builder<Region> {

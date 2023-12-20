@@ -1,8 +1,8 @@
 package com.javasmithy;
 
-import io.javasmithy.weather.Forecast;
-import io.javasmithy.weather.ForecastPeriod;
-import io.javasmithy.weather.BoundForecastPeriodProperties;
+import com.javasmithy.weather.Forecast;
+import com.javasmithy.weather.ForecastPeriod;
+import com.javasmithy.weather.BoundForecastPeriodProperties;
 
 import java.util.HashMap;
 import java.util.List;

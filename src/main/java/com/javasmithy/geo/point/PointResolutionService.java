@@ -1,4 +1,4 @@
-package io.javasmithy.geo.point;
+package com.javasmithy.geo.point;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

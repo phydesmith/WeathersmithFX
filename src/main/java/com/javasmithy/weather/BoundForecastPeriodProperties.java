@@ -1,4 +1,4 @@
-package io.javasmithy.weather;
+package com.javasmithy.weather;
 
 import com.google.gson.annotations.SerializedName;
 import javafx.beans.property.SimpleBooleanProperty;

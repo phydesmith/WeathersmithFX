@@ -1,6 +1,5 @@
-package io.javasmithy.weather;
+package com.javasmithy.weather;
 
-import io.javasmithy.geo.point.Point;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

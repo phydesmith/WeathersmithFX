@@ -1,6 +1,5 @@
 package com.javasmithy;
 
-import io.javasmithy.geo.GeoData;
 import javafx.concurrent.Task;
 import javafx.scene.layout.Region;
 import javafx.util.Builder;

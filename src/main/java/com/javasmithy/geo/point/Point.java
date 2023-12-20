@@ -1,4 +1,4 @@
-package io.javasmithy.geo.point;
+package com.javasmithy.geo.point;
 
 import com.google.gson.annotations.SerializedName;
 

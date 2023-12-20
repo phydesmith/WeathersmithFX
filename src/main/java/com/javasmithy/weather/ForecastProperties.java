@@ -1,4 +1,4 @@
-package io.javasmithy.weather;
+package com.javasmithy.weather;
 
 import java.util.List;
 

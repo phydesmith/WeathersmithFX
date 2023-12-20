@@ -1,4 +1,4 @@
-package io.javasmithy.geo.point;
+package com.javasmithy.geo.point;
 
 
 public class PointProperties {
